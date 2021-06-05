@@ -1,5 +1,6 @@
 package TAD;
 import dados.*;
+import dados.dataTree.Nodo;
 
 public class AB {
     
@@ -39,7 +40,7 @@ public class AB {
 
     }
 
-    private Nodo inserirP(Nodo r, int frequencia){
+    private Nodo inserirP(Nodo r, int frequencia, char letra){
 
         // Se a raiz atual é 'null', então
         if (isEmpty(this.raiz)){
@@ -47,7 +48,7 @@ public class AB {
             // Cria um nó, insere os dados e faz a ligação com a raiz,
             // Ou seja, pega o endereço do nó criado e insere no
             // atributo _raiz "atual".
-            r = new Nodo(frequencia); // Caso a raiz seja null, já cria o nó
+            r = new Nodo(frequencia, letra); // Caso a raiz seja null, já cria o nó
             adicionado = true;
             
         }else{
@@ -58,13 +59,13 @@ public class AB {
              // Se _resultado = -1, quer dizer que a possível inserção do nó,
             // se dá à esquerda do nó atual.
             if (resultado < 0){
-                r.setFE(inserirP(raiz, frequencia));
+                r.setFE(inserirP(raiz, frequencia, letra));
             }else{
 
                 // Se _resultado = +1, quer dizer que a possível inserção do nó,
                 // se dá à direita do nó atual.  
                 if (resultado > 0)
-                    r.setFD(inserirP(raiz, frequencia));
+                    r.setFD(inserirP(raiz, frequencia, letra));
                 else
                    adicionado = false;
                 
@@ -76,10 +77,10 @@ public class AB {
 
     }
 
-    public boolean inserir(int frequencia){
+    public boolean inserir(int frequencia, char letra){
 
         // Registra o último endereço retornado.
-        raiz = inserirP(raiz, frequencia);
+        raiz = inserirP(raiz, frequencia, letra);
         return adicionado;
 
     }

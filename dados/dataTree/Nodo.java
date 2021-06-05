@@ -1,4 +1,5 @@
-package dados;
+package dados.dataTree;
+
 public class Nodo {
     
     private Nodo fE;
@@ -7,13 +8,23 @@ public class Nodo {
 
     public Nodo(){ }
 
-    public Nodo(int frequencia){
+    public Nodo(int frequencia, char letra){
 
-        Dado u = new Dado(frequencia);
+        Dado u = new Dado(frequencia, letra);
         objeto = u;
         fE = null; // Não existe filho esquerdo.
         fD = null; // Não existe filho direito.
 
+    }
+
+
+
+    public String getDadoFrequencia() {
+        return  ""+this.objeto.getFrequencia();
+    }
+
+    public char getDadoLetra() {
+        return this.objeto.getLetra();
     }
 
     public Nodo getFE() {

@@ -3,14 +3,14 @@ package Arvore;
 import Nodo.*;
 
 public class Arvore {
-    private No raiz;
+    private NoList raiz;
     
 
     public Arvore() {
         this.raiz = null;
     }
 
-    public boolean isEmpty(No analisar) {
+    public boolean isEmpty(NoList analisar) {
         return analisar == null;
     }
 }
