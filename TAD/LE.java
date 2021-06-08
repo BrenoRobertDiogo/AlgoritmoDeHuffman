@@ -13,7 +13,19 @@ public class LE {
     private int quantidadeDeNos;
 
     private NoList inicioDaLista;
+
     private NoList finalDaLista;
+
+    /*-----------------------------------
+             GETTER E SETTER
+    -----------------------------------*/
+    public NoList getInicioDaLista() {
+        return inicioDaLista;
+    }
+
+    public void setInicioDaLista(NoList inicioDaLista) {
+        this.inicioDaLista = inicioDaLista;
+    }
 
     /*-----------------------------------
              CONSTRUTOR DA CLASSE
@@ -59,109 +71,122 @@ public class LE {
 
     // Método para verificar se a lista está vazia.
     public boolean isEmpty() {
-        return quantidadeDeNos == 0;
+        return quantidadeDeNos == 0 || inicioDaLista == null;
 
     }
 
-    // Método para inserir um nó na lista
-    public boolean inserir(Nodo noTree, int p) { // p = posição
-
-        // Se posição negativa ou maior que a quantidade de nós
-        if ((p < 0) || (p > quantidadeDeNos)) {
-
-            return false; // Quer dizer que não será possível inserir dados.
-
-        } else {
-            NoList novoNo = new NoList(noTree);
-
-            // Caso 1: Lista está vazia.
-            if (isEmpty()) {
-
-                // Registra null como próxima referência.
-                novoNo.setProximo(null);
-
-                // Diz para descritor quem é o 1º e último nó da lista.
-                inicioDaLista = novoNo;
-                finalDaLista = novoNo;
-
-            } else {
-
-                // Caso 2: posição = 0
-                if (p == 0) {
-                    novoNo.setProximo(inicioDaLista);
-
-                    // Registra o novoNo como 1º nó da lista.
-                    inicioDaLista = novoNo;
-
-                } else {
-
-                    // Caso 3: posição = ultima posição válida
-                    if (p == quantidadeDeNos) {
-
-                        // Registra null como próxima referência.
-                        novoNo.setProximo(null);
-
-                        // O último nó da lista a partir deste momento
-                        // tem o endereço do novoNo.
-                        // finalDaLista.getProximo().setProximo(novoNo); <--- Fiz esse erro.
-                        finalDaLista.setProximo(novoNo); // <--- Código correto.
-
-                        // Registra o novoNo como último nó da lista.
-                        finalDaLista = novoNo;
-
-                    } else {
-
-                        // Caso 4: Inserir entre as posições 0 e quantidadeDeNos.
-
-                        // Atributo responsável por percorrer a lista.
-                        // Começa apontando para o 1º nó da lista.
-                        NoList referenciaAtual = inicioDaLista;
-
-                        // Necessário percorrer da 1ª posição até uma posição
-                        // antes da que realmente quer inserir.
-                        // Para avançar para o próximo nó, necessário acessar
-                        // o campo próximo.
-                        for (int i = 0; i < (p - 1); i++) {
-                            referenciaAtual = referenciaAtual.getProximo();
-                        }
-
-                        // Registra o endereço do nó que está na posição 'p'
-                        // no campo próximo do novoNo.
-                        novoNo.setProximo(referenciaAtual.getProximo());
-
-                        // O nó anterior ao novoNo registra o endereço do mesmo.
-                        referenciaAtual.setProximo(novoNo);
-
-                    }
-
-                }
-
-            }
-
-            // Atualiza a quantidade de nós da lista.
-            quantidadeDeNos = quantidadeDeNos + 1;
-
-            return true;
-
-        }
-
-    }
-
-
-    public void inserir(int frequencia, char letra){
+    public void inserir(int frequencia, char letra) {
         Nodo noPassar = new Nodo(frequencia, letra);
         NoList No = new NoList(noPassar);
-        if(isEmpty()){
+        if (isEmpty()) {
             inicioDaLista = No;
-        }
-        else{
+        } else {
             finalDaLista.setProximo(No);
         }
         finalDaLista = No;
-        // System.out.print(finalDaLista.getNoTree().getFrequencia().getDadoFrequencia()+", ");
+        // System.out.print(finalDaLista.getNoTree().getFrequencia().getDadoFrequencia()+",
+        // ");
         // System.out.println(finalDaLista.getNoTree().getFrequencia().getDadoLetra());
         quantidadeDeNos++;
 
+    }
+
+    public void inserir(NoList insercao) {
+        if (isEmpty()) {
+            inicioDaLista = insercao;
+        } else {
+            // adicionando no final
+            finalDaLista.setProximo(insercao);
+            // insercao.setProximo(inicioDaLista);
+        }
+        finalDaLista = insercao;
+        quantidadeDeNos++;
+
+    }
+
+    public void inserirLogica(NoList insercao) {
+        NoList ant = inicioDaLista, atual = inicioDaLista; // Numeros de frequencia do nó atual e de inserção
+        int dadoFrequenciaInsercao = Integer.parseInt(insercao.getNoTree().getFrequencia().getDadoFrequencia()),
+        dadoFrequenciaAtual = 0;
+        
+        if (isEmpty() || inicioDaLista == null) {
+            System.out.println("ESTAVA VAZIOOOOOOOOOOOOOOOOOOOOOOOOOO");
+            System.out.println("Inserindo char " + insercao.getNoTree().getFrequencia().getDadoLetra());
+            this.inicioDaLista = insercao;
+            this.finalDaLista = insercao;
+            quantidadeDeNos++;
+            return;
+        }
+        // System.out.println("Inicio da lista: "+
+        // inicioDaLista.getNoTree().getFrequencia().getDadoLetra());
+        System.out.println("Inserindo char " + insercao.getNoTree().getFrequencia().getDadoLetra() + " | "
+                + insercao.getNoTree().getFrequencia().getDadoFrequencia());
+        do {
+            if (ant.getProximo() == null || ant.getProximo() == finalDaLista) { // Caso não tenha um número menor, chegou no final da lista
+                System.out.println(atual.getNoTree().getFrequencia().getDadoLetra() + " ENTROU NO IFFFFFFF");
+                insercao.setProximo(null);
+                finalDaLista.setProximo(insercao);
+                this.finalDaLista = insercao;
+                // inserir(insercao);
+                break;
+            }
+
+            dadoFrequenciaAtual = Integer.parseInt(atual.getNoTree().getFrequencia().getDadoFrequencia());
+
+            if (dadoFrequenciaInsercao < dadoFrequenciaAtual) {
+                if (atual == inicioDaLista) {
+                    insercao.setProximo(inicioDaLista);
+                    inicioDaLista = insercao;
+                    break;
+                }
+                /*
+                 * ant.setProximo(insercao); insercao.setProximo(atual);
+                 */
+                // Caso esteja no final da lista
+
+                ant.setProximo(insercao);
+                insercao.setProximo(atual);
+
+                /*
+                 * insercao.setProximo(null); finalDaLista.setProximo(insercao);
+                 * this.finalDaLista = insercao;
+                 */
+                break;
+
+            } // final if
+            ant = atual;
+            atual = atual.getProximo();
+        } while (ant.getProximo() != null && atual != insercao); // Final while
+        quantidadeDeNos++;
+    }
+
+    public NoList removerNo(NoList noRemover) {
+        NoList atual = inicioDaLista;
+        NoList ant = null;
+
+        if (isEmpty()) {
+            return null;
+        }
+
+        while (atual.getProximo() != null && atual != noRemover) {
+            ant = atual;
+            atual = atual.getProximo();
+        }
+
+        if (atual == inicioDaLista) {
+            if (inicioDaLista == finalDaLista) {
+                this.finalDaLista = null;
+            }
+            this.inicioDaLista = inicioDaLista.getProximo();
+        } else {
+            if (atual == this.finalDaLista) {
+                finalDaLista = ant;
+            }
+            ant.setProximo(atual.getProximo());
+        }
+        quantidadeDeNos--;
+
+        return noRemover;
     }
 
     // Método para remover um nó da lista
@@ -255,6 +280,19 @@ public class LE {
 
     }
 
+    @Override
+    public String toString() {
+        NoList atual = inicioDaLista;
+        String mandar = "";
+        while (atual != null) {
+            mandar += "Char [" + atual.getNoTree().getFrequencia().getDadoLetra() + "] aparece ";
+            mandar += atual.getNoTree().getFrequencia().getDadoFrequencia() + " vezes\n";
+            atual = atual.getProximo();
+        }
+        // System.out.println(mandar);
+        return mandar;
+    }
+
     // Método para imprimir a lista encadeada (relatório dos dados dos usuáios)
     public String relatorio() {
 
@@ -274,7 +312,8 @@ public class LE {
                 // Vai resgatando os valores do nó (dados do usuário) e já vai
                 // formatando a string de retorno.
                 relatorio += "\n[ " + referenciaAuxiliar.getNoTree().getFrequencia() + " -> ";
-                // relatorio += "\n[ " + referenciaAuxiliar.getNoTree().getFrequencia() + " -> ";
+                // relatorio += "\n[ " + referenciaAuxiliar.getNoTree().getFrequencia() + " ->
+                // ";
                 // Avança para o próximo nó.
                 referenciaAuxiliar = referenciaAuxiliar.getProximo();
 
