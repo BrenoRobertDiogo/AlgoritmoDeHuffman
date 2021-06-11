@@ -39,7 +39,6 @@ public class ManipulaTexto {
             if (c >= ' ' && c <= '~' && !v.contains("" + c)) {
                 cont2++;
                 v = v + c;
-                String valor = cont + "ϡ," + auxTexto.charAt(i);
                 passados[i] = cont + "ϡ," + auxTexto.charAt(i);
 
             }
@@ -96,8 +95,6 @@ public class ManipulaTexto {
         int menorInt = Integer.parseInt(lista.getInicioDaLista().getNoTree().getFrequencia().getDadoFrequencia());
         NoList atual = lista.getInicioDaLista();
         NoList retornar = null;
-        // String menor = "";
-        // String atual;
 
         while (atual != null) {
             int numAtual = Integer.parseInt(atual.getNoTree().getFrequencia().getDadoFrequencia());
@@ -156,18 +153,5 @@ public class ManipulaTexto {
         return pai;
     }
 
-    
-    /* public String[] criaBinarios( String[] arrayFrequencia, LE listaEncadeada ) {
-
-        
-        return arrayFrequencia;
-    } */
-    
-
-    public void criaNos(String[] array) {
-        for (int i = 0; i < array.length; i++) {
-            Nodo novoDado = new Nodo();
-        }
-    }
 
 } // Fim classe

@@ -1,6 +1,5 @@
 package dados.dataTree;
-import java.io.Serializable;
-public class Dado implements Serializable{
+public class Dado{
     
     private int frequencia;
     private char letra;

@@ -1,10 +1,7 @@
 package dados.dataTree;
 
-import Funcionalidades.ManipulaTexto;
-import java.io.Serializable;
 
-
-public class Nodo implements Serializable {
+public class Nodo {
 
     private Nodo fE;
     private Dado objeto;

@@ -5,9 +5,7 @@ import dados.dataTree.Nodo;
 
 import dados.dataList.NoList;
 import java.io.IOException;
-import java.util.Scanner;
 // Escrever objetos
-import java.io.FileWriter;
 import java.io.BufferedWriter;
 
 // Ler objetos
@@ -15,23 +13,6 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 
 public class Operations {
-    /*
-     * public static void writeObject(NoList escreverNo) { try { FileOutputStream
-     * fos = new FileOutputStream("NoSalvo\\object.dat"); ObjectOutputStream oos =
-     * new ObjectOutputStream(fos); // create a new user object
-     * 
-     * // write object to file oos.writeObject(escreverNo);
-     * 
-     * } catch (Exception ex) { ex.printStackTrace(); } }
-     */
-
-    /*
-     * public static Object ler(String fileName) throws ClassNotFoundException {
-     * Object cu = null; try { FileInputStream fis = new FileInputStream(fileName);
-     * ObjectInputStream objectstream = new ObjectInputStream(fis); cu =
-     * objectstream.readObject(); objectstream.close(); } catch (Exception e) {
-     * e.getStackTrace(); } return cu; }
-     */
 
     public static NoList criaArvore(LE listaEncadeada, ManipulaTexto manipulaTexto) {
 
@@ -152,14 +133,12 @@ public class Operations {
         for (int i = 0; i < cabecalho.length; i++) {
             binarios[i] = cabecalho[i].substring(0, cabecalho[i].length()-1);
             caracter[i] = cabecalho[i].charAt(cabecalho[i].length()-1);
-            // System.out.println("BINARIOOO "+binarios[i]);
         }
 
         for (int i = 0; i < texto.length(); i++) {
             for (int j = 0; j < caracter.length; j++) {
                 String letraAtual = ""+texto.charAt(i);
                 String binarioAtual = binarios[j];
-                // System.out.println("Letra ["+letraAtual + "] | Binario ["+binarioAtual + "]"  );
                 if(letraAtual.equals((caracter[j])+"")){
                     System.out.print(binarioAtual);
                     break;

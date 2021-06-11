@@ -32,11 +32,6 @@ public class LE {
       -----------------------------------*/
 
     public LE() {
-
-        /*
-         * inicioDaLista = null; quantidadeDeNos = 0; finalDaLista = null;
-         */
-
         inicializarLista();
 
     }
@@ -88,19 +83,6 @@ public class LE {
 
     }
 
-    public void inserir(NoList insercao) {
-        if (isEmpty()) {
-            inicioDaLista = insercao;
-        } else {
-            // adicionando no final
-            finalDaLista.setProximo(insercao);
-            // insercao.setProximo(inicioDaLista);
-        }
-        finalDaLista = insercao;
-        quantidadeDeNos++;
-
-    }
-
     public void inserirLogica(NoList insercao) {
         NoList ant = inicioDaLista, atual = inicioDaLista; // Numeros de frequencia do nó atual e de inserção
         int dadoFrequenciaInsercao = Integer.parseInt(insercao.getNoTree().getFrequencia().getDadoFrequencia()),
@@ -117,7 +99,6 @@ public class LE {
                 insercao.setProximo(null);
                 finalDaLista.setProximo(insercao);
                 this.finalDaLista = insercao;
-                // inserir(insercao);
                 break;
             }
 
@@ -129,18 +110,10 @@ public class LE {
                     inicioDaLista = insercao;
                     break;
                 }
-                /*
-                 * ant.setProximo(insercao); insercao.setProximo(atual);
-                 */
                 // Caso esteja no final da lista
 
                 ant.setProximo(insercao);
                 insercao.setProximo(atual);
-
-                /*
-                 * insercao.setProximo(null); finalDaLista.setProximo(insercao);
-                 * this.finalDaLista = insercao;
-                 */
                 break;
 
             } // final if
