@@ -1,8 +1,8 @@
 package dados.dataList;
 import dados.dataTree.Nodo;
+import java.io.Serializable;
 
-
-public class DadoList{
+public class DadoList implements Serializable{
 
     /*-----------------------------------
               ATRIBUTOS DA CLASSE

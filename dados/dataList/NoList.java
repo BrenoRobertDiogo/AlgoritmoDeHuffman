@@ -1,8 +1,9 @@
 package dados.dataList;
 
 import dados.dataTree.Nodo;
+import java.io.Serializable;
 
-public class NoList {
+public class NoList implements Serializable{
 
     private DadoList nodoTree;
     private NoList proximo;

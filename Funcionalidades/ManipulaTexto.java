@@ -39,10 +39,7 @@ public class ManipulaTexto {
             if (c >= ' ' && c <= '~' && !v.contains("" + c)) {
                 cont2++;
                 v = v + c;
-                // System.out.println("A letra " + auxTexto.charAt(i) + " aparece " + cont + "
-                // vezes.");
                 String valor = cont + "ϡ," + auxTexto.charAt(i);
-                // System.out.println(i);
                 passados[i] = cont + "ϡ," + auxTexto.charAt(i);
 
             }
@@ -67,13 +64,10 @@ public class ManipulaTexto {
         adicionar[0] = textos[0];
         for (int i = 1; i < textos.length; i++) {
             cont = 0;
-            // System.out.println(textos[i]);
             for (int j = 0; j < adicionar.length; j++) {
                 if (adicionar[j] != null) {
-                    // System.out.println(adicionar[j]);
                     if (Integer.parseInt(textos[i].split("ϡ,")[0]) <= Integer.parseInt(adicionar[j].split("ϡ,")[0])) {
                         adicionar[cont] = textos[i];
-                        // System.out.println("ADICIONOU O ANT");
                         cont++;
                     }
 
@@ -118,7 +112,6 @@ public class ManipulaTexto {
         while (atual != null) {
             int numAtual = Integer.parseInt(atual.getNoTree().getFrequencia().getDadoFrequencia());
             if(numAtual == Integer.parseInt(retornar.getNoTree().getFrequencia().getDadoFrequencia())  ){
-                System.out.println("RETORNAR = "+ atual.getNoTree().getFrequencia().getDadoLetra()  );
                 retornar = atual;
                 break;
             }
@@ -131,9 +124,7 @@ public class ManipulaTexto {
     public NoList[] doisMenores(LE lista) {
         NoList[] retornar = new NoList[2];
         NoList menor1 = lista.removerNo(menorNumero(lista));
-        // System.out.println("Retirou "+menor1.getNoTree().getFrequencia().getDadoLetra()    );
         NoList menor2 = lista.removerNo(menorNumero(lista));
-        // System.out.println("Retirou "+menor2.getNoTree().getFrequencia().getDadoLetra()    );
         retornar[0] = menor1;
         retornar[1] = menor2;
 
