@@ -35,7 +35,6 @@ public class Principal {
         Operations.binarioLetra(pai.getNoTree().getFrequencia(), 2, "", buffWrite);
         buffWrite.close();
         // String anaBanana = "1001010111110111001011010011100011011011110111100110011100011010010111011100000001111011110111";
-        // String binari2 = "000000000000000000001001001001001010010010010011011011100100101";
         String binario = "101010101010010101010100000000110110110111111111110";
         
         System.out.print("\nFrase: "+texto);
