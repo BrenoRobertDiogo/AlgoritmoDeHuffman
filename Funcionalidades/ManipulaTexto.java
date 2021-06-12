@@ -153,5 +153,4 @@ public class ManipulaTexto {
         return pai;
     }
 
-
 } // Fim classe

@@ -7,6 +7,7 @@ import dados.dataList.NoList;
 import java.io.IOException;
 // Escrever objetos
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 // Ler objetos
 import java.io.FileReader;
@@ -14,7 +15,7 @@ import java.io.BufferedReader;
 
 public class Operations {
 
-    public static NoList criaArvore(LE listaEncadeada, ManipulaTexto manipulaTexto) {
+    private static NoList criaArvore(LE listaEncadeada, ManipulaTexto manipulaTexto) {
 
         NoList[] baiocco2;
         int tamanhoLE = listaEncadeada.getQuantidadeDeNos() - 1;
@@ -39,7 +40,7 @@ public class Operations {
         }
     }
 
-    public static void binarioLetra(Nodo r, int lado, String total, BufferedWriter buffWrite) {
+    private static void binarioLetra(Nodo r, int lado, String total, BufferedWriter buffWrite) {
         if (r != null) {
             String retornar = total;
             if (lado == 0) {
@@ -53,10 +54,8 @@ public class Operations {
 
                     buffWrite.append(retornar + "" + r.getDadoLetra() + "S2");
                 } catch (Exception e) {
-                    // TODO: handle exception
                 }
 
-                System.out.println(retornar + "" + r.getDadoLetra() + "a2");
             }
             binarioLetra(r.getFE(), 0, retornar, buffWrite);
             binarioLetra(r.getFD(), 1, retornar, buffWrite);
@@ -90,7 +89,8 @@ public class Operations {
         return -1;
     }
     
-    public static void descompactaTexto(String texto, String path) {
+    public static String descompactaTexto(String texto, String path) {
+        String retorna = "";
         String[] linesFile = new String[2];
         try {
             linesFile = pegaCabecalho(path);
@@ -110,18 +110,18 @@ public class Operations {
             aux += texto.charAt(i)+"";
             int numeroContido = estaContido(aux, binarios);
             if(numeroContido!=-1){
-                System.out.print(caracter[numeroContido]);
+                retorna+=caracter[numeroContido];
                 aux = "";
             }
 
         }
-        
-
+        return retorna;
 
     }
 
-    public static void compactaTexto(String texto, String path) {
+    public static String compactaTexto(String texto, String path) {
         String[] linesFile = new String[2];
+        String retorna = "";
         try {
             linesFile = pegaCabecalho(path);
 
@@ -140,11 +140,30 @@ public class Operations {
                 String letraAtual = ""+texto.charAt(i);
                 String binarioAtual = binarios[j];
                 if(letraAtual.equals((caracter[j])+"")){
-                    System.out.print(binarioAtual);
+                    retorna += binarioAtual;
                     break;
                 }
             }
         }
+        return retorna;
+    }
+
+    
+
+    public static String ExcutaBinario(String texto,String nomearq) throws IOException{
+        ManipulaTexto manipulaTexto = new ManipulaTexto(texto);
+        String[] arrayFrequencia = manipulaTexto.frequencia();
+        LE listaEncadeada = manipulaTexto.arrayToList(arrayFrequencia);
+        NoList pai = criaArvore(listaEncadeada, manipulaTexto);
+
+        BufferedWriter buffWrite;
+
+        buffWrite = new BufferedWriter(new FileWriter("data\\"+nomearq+".mexirica"));
+        Operations.binarioLetra(pai.getNoTree().getFrequencia(), 2, "", buffWrite);
+        buffWrite.close();
+        binarioLetra(pai.getNoTree().getFrequencia(), 2, "",buffWrite);
+
+        return "NoSalvo\\"+nomearq+".mexirica";
     }
 
 }
