@@ -2,10 +2,12 @@ package Funcionalidades;
 
 import Funcionalidades.Operations;
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.File;
+import java.util.regex.*;
 
 public class interfaceArq extends JFrame implements ActionListener {
     //Texto digitado
@@ -80,18 +82,31 @@ public class interfaceArq extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         
         if (e.getSource() == CodArquiButton){
-            final JFileChooser fc = new JFileChooser();
-            System.out.println(fc.showOpenDialog(this)); 
+            String NomeArq = "";
+            String TextoParaComp = TextoCodField.getText();
+            JFileChooser f = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+            int returnValue = f.showOpenDialog(null);
+            String path = "";
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = f.getSelectedFile();
+                path = selectedFile.getAbsolutePath();
+                int position = path.length() - 1;
+                // String separa = "\\(.*).text";
+                NomeArq = path.split("\\\\")[position].substring(position-4,position);
+                System.out.println(NomeArq);
+            }
+        
             try {
-                
-                fc.getSelectedFile();
-                // path = String.valueOf(reader);
-                // TextoParaComp = TextoCodField.getText();
-                // JOptionPane.showMessageDialog(this, TextoParaComp);
-                // String caminho = Operations.ExcutaBinario(TextoParaComp,path);
-                // Operations.compactaTexto(TextoParaComp,caminho);
-
-            } catch (Exception ex) {}
+                String caminho = Operations.ExcutaBinario(TextoParaComp,NomeArq,path);
+                Operations.compactaTexto(TextoParaComp,caminho);
+                JOptionPane.showMessageDialog(this, "O arquivo está salvo na pasta "+caminho+" contida na pasta do projeto !!!!");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Nenhum arquivo selecionado");
+                System.out.println(ex.getMessage());
+            }
+            
+            
+            
         }
 
         else if (e.getSource() == CodButton) {
