@@ -3,7 +3,6 @@ import Funcionalidades.interfaceArq;
 import javax.swing.*;
 public class Principal {
     public static void main(String[] args) throws Exception {
-         //Creating object of LoginFrame class and setting some of its properties
          interfaceArq frame = new interfaceArq();
          frame.setTitle("Mexericas Compactors");
          frame.setVisible(true);

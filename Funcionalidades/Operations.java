@@ -150,7 +150,7 @@ public class Operations {
 
     
 
-    public static String ExcutaBinario(String texto,String nomearq) throws IOException{
+    public static String ExcutaBinario(String texto,String nomearq,String path) throws IOException{
         ManipulaTexto manipulaTexto = new ManipulaTexto(texto);
         String[] arrayFrequencia = manipulaTexto.frequencia();
         LE listaEncadeada = manipulaTexto.arrayToList(arrayFrequencia);
@@ -158,12 +158,12 @@ public class Operations {
 
         BufferedWriter buffWrite;
 
-        buffWrite = new BufferedWriter(new FileWriter("data\\"+nomearq+".mexirica"));
+        buffWrite = new BufferedWriter(new FileWriter(path+"\\"+nomearq+".mexirica"));
         Operations.binarioLetra(pai.getNoTree().getFrequencia(), 2, "", buffWrite);
         buffWrite.close();
         binarioLetra(pai.getNoTree().getFrequencia(), 2, "",buffWrite);
 
-        return "NoSalvo\\"+nomearq+".mexirica";
+        return path+"\\"+nomearq+".mexirica";
     }
 
 }
