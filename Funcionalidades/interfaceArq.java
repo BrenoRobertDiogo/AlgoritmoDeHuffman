@@ -96,9 +96,7 @@ public class interfaceArq extends JFrame implements ActionListener {
 
         else if (e.getSource() == CodButton) {
             String TextoParaComp = TextoCodField.getText();
-            System.out.println(TextoParaComp);
             String NomeArq = nomeArq.getText();
-            System.out.println(NomeArq);
             String path = "";
             if (NomeArq.equals("")){
                 NomeArq = "GomaD";
@@ -109,8 +107,6 @@ public class interfaceArq extends JFrame implements ActionListener {
                 f.showSaveDialog(null);
                 path = f.getSelectedFile().toString();
                 String caminho = Operations.ExcutaBinario(TextoParaComp,NomeArq,path);
-                System.out.println(caminho);
-                System.out.println(Operations.compactaTexto(TextoParaComp,caminho));
                 JOptionPane.showMessageDialog(this, "O arquivo está salvo na pasta "+caminho+" contida na pasta do projeto !!!!");
 
             } catch (Exception ex) {}

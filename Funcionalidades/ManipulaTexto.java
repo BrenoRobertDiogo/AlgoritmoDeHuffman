@@ -24,7 +24,7 @@ public class ManipulaTexto {
     public String[] frequencia() {
 
         String auxTexto = this.texto;
-        String[] passados = new String[93];
+        String[] passados = new String[900];
 
         int cont = 0, cont2 = 0;
         String v = "";
