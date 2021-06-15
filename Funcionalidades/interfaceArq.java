@@ -24,6 +24,7 @@ public class interfaceArq extends JFrame implements ActionListener {
     // Descompacta
     JLabel TextoDesc = new JLabel("Texto descompactado:");
     JTextArea TextoDescField = new JTextArea();
+    JScrollPane sp = new JScrollPane(TextoDescField);
     // JScrollPane scrollPane = new JScrollPane(TextoDescField, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     JButton DescButton = new JButton("Descompactar");
 
@@ -54,7 +55,7 @@ public class interfaceArq extends JFrame implements ActionListener {
         
 
         TextoDesc.setBounds(45, 450, 200, 30);
-        TextoDescField.setBounds(45, 480, 900, 250);
+        sp.setBounds(45, 480, 900, 250);
         DescButton.setBounds(45, 740, 900, 30);
     }
 
@@ -104,7 +105,7 @@ public class interfaceArq extends JFrame implements ActionListener {
             try {
                 String caminho = Operations.ExcutaBinarioArq(NomeArq,path,pathM);;
                 String binario = Operations.compactaTexto(Operations.leitor(caminho),caminho);
-                Operations.escritor(caminho, binario);
+                Operations.escritorDesc(caminho, binario);
                 JOptionPane.showMessageDialog(this, "O arquivo está salvo na pasta "+caminho+" contida na pasta do projeto !!!!");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Nenhum arquivo selecionado");
@@ -129,7 +130,7 @@ public class interfaceArq extends JFrame implements ActionListener {
                 path = f.getSelectedFile().toString();
                 String caminho = Operations.ExcutaBinario(TextoParaComp,NomeArq,path);
                 String binario = Operations.compactaTexto(TextoParaComp,caminho);
-                Operations.escritor(caminho, binario);
+                Operations.escritorDesc(caminho, binario);
                 JOptionPane.showMessageDialog(this, "O arquivo está salvo na pasta "+caminho+" contida na pasta do projeto !!!!");
 
             } catch (Exception ex) {
@@ -138,21 +139,29 @@ public class interfaceArq extends JFrame implements ActionListener {
             }
         }
         if (e.getSource() == DescButton){
-            container.add(TextoDescField);
+            container.add(sp);
             
             JFileChooser f = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
             int returnValue = f.showOpenDialog(null);
-            String path = "";
+            String path = "",NomeArq="",pathM="";
             if (returnValue == JFileChooser.APPROVE_OPTION) {
 
                 File selectedFile = f.getSelectedFile();
-                path = selectedFile.getAbsolutePath();                
-           
+                path = selectedFile.getAbsolutePath();
+
+                int position = path.lastIndexOf("\\")+1;
+                int tam = path.length();
+                NomeArq = path.substring(position,tam);
+                pathM = path.substring(0,position-1);
+                int pontoArq = NomeArq.lastIndexOf(".");
+                NomeArq = NomeArq.substring(0,pontoArq);                
             }
             
             try{
                 String Descompacta = Operations.descompactaTexto(Operations.lerBinario(path),path);
                 TextoDescField.setText(Descompacta);
+                Operations.escritorArq(pathM,Descompacta,NomeArq);
+                JOptionPane.showMessageDialog(this, "O arquivo foi descompactado com sucesso e foi salvo na pasta de destino !!!!");
             }
             catch(Exception sla){
                 JOptionPane.showMessageDialog(this, "Impossivel Descompactar");

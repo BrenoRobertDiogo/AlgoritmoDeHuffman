@@ -66,20 +66,16 @@ public class Operations {
     private static String pegaCabecalho(String path) throws IOException {
         BufferedReader buffRead = new BufferedReader(new FileReader(path));
         String linha = buffRead.readLine();
-    
-        // String[] retornar = new String[2];
-        // int cont = 0;
-        // while (true) {
-        //     if (linha != null) {
-        //         linha = buffRead.readLine();
-        //         retornar[cont] = linha;
-
-        //     } else
-        //         break;
-        //     cont++;
-        // }
+        String Cabecalho = "";
+        while (true) {
+            if (!linha.equals("")) {
+                Cabecalho+= linha;
+            } else
+                break;
+            linha = buffRead.readLine();
+        }
         buffRead.close();
-        return linha;
+        return Cabecalho;
     }
 
     private static int estaContido(String valor, String[] vetor){
@@ -203,9 +199,19 @@ public class Operations {
 
     public static String lerBinario(String path) throws IOException {
         BufferedReader buffRead = new BufferedReader(new FileReader(path));
-		String linha = "";
+		String linha = buffRead.readLine();
         String Texto = "";
-        buffRead.readLine();
+
+        while (true) {
+            if (!linha.equals("")){
+                linha = buffRead.readLine();
+            }
+            else {
+                break;
+            }
+        }
+
+        // linha = buffRead.readLine();
 		while (true) {
 			if (linha != null) {
 				Texto+= linha;
@@ -218,14 +224,25 @@ public class Operations {
         return Texto;
 	}
 
-    public static void escritor(String path,String texto) throws IOException {
+    public static void escritorDesc(String path,String texto) throws IOException {
         try(FileWriter fw = new FileWriter(path, true);
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter out = new PrintWriter(bw)){
             
-            out.print("\n"+texto);
+            out.print("\n\n"+texto);
         }
-         catch (IOException e) {
+         catch (IOException e){
+            
+        }
+	}
+
+    public static void escritorArq(String path,String texto, String nome) throws IOException {
+        try(FileWriter fw = new FileWriter(path+"\\"+nome+".txt", true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter out = new PrintWriter(bw)){
+            out.print(texto);
+        }
+         catch (IOException e){
             
         }
 	}
