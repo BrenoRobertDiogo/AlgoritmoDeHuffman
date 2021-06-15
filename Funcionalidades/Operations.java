@@ -5,6 +5,7 @@ import dados.dataTree.Nodo;
 
 import dados.dataList.NoList;
 import java.io.IOException;
+import java.io.PrintWriter;
 // Escrever objetos
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -152,7 +153,7 @@ public class Operations {
 
     public static String ExcutaBinario(String texto,String nomearq,String path) throws IOException{
         ManipulaTexto manipulaTexto = new ManipulaTexto(texto);
-        String[] arrayFrequencia = manipulaTexto.frequencia();
+        String[] arrayFrequencia = manipulaTexto.frequencia(100);
         LE listaEncadeada = manipulaTexto.arrayToList(arrayFrequencia);
         NoList pai = criaArvore(listaEncadeada, manipulaTexto);
 
@@ -160,10 +161,55 @@ public class Operations {
 
         buffWrite = new BufferedWriter(new FileWriter(path+"\\"+nomearq+".mexirica"));
         Operations.binarioLetra(pai.getNoTree().getFrequencia(), 2, "", buffWrite);
-        buffWrite.close();
         binarioLetra(pai.getNoTree().getFrequencia(), 2, "",buffWrite);
+        buffWrite.close();
 
         return path+"\\"+nomearq+".mexirica";
     }
+
+    public static String ExcutaBinarioArq(String nomearq,String path,String pathM) throws IOException{
+        ManipulaTexto manipulaTexto = new ManipulaTexto(leitor(path));
+        String[] arrayFrequencia = manipulaTexto.frequencia(100);
+        LE listaEncadeada = manipulaTexto.arrayToList(arrayFrequencia);
+        NoList pai = criaArvore(listaEncadeada, manipulaTexto);
+
+        BufferedWriter buffWrite;
+
+        buffWrite = new BufferedWriter(new FileWriter(pathM+"\\"+nomearq+".mexirica"));
+        Operations.binarioLetra(pai.getNoTree().getFrequencia(), 2, "", buffWrite);
+        binarioLetra(pai.getNoTree().getFrequencia(), 2, "",buffWrite);
+        buffWrite.close();
+
+        return pathM+"\\"+nomearq+".mexirica";
+    }
+
+    public static String leitor(String path) throws IOException {
+		BufferedReader buffRead = new BufferedReader(new FileReader(path));
+		String linha = "";
+        String Texto = "";
+		while (true) {
+			if (linha != null) {
+				Texto += linha;
+
+			} else
+				break;
+			linha = buffRead.readLine();
+		}
+        buffRead.close();
+        return Texto;
+		
+	}
+
+    public static void escritor(String path,String texto) throws IOException {
+        try(FileWriter fw = new FileWriter(path, true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter out = new PrintWriter(bw)){
+            
+            out.print("\n"+texto);
+        }
+         catch (IOException e) {
+            
+        }
+	}
 
 }

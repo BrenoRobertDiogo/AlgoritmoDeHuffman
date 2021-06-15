@@ -1,4 +1,3 @@
-import Funcionalidades.Operations;
 import Funcionalidades.interfaceArq;
 import javax.swing.*;
 public class Principal {
