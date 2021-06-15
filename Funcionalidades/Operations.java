@@ -63,22 +63,23 @@ public class Operations {
         }
     }
 
-    private static String[] pegaCabecalho(String path) throws IOException {
+    private static String pegaCabecalho(String path) throws IOException {
         BufferedReader buffRead = new BufferedReader(new FileReader(path));
-        String linha = "";
-        String[] retornar = new String[2];
-        int cont = 0;
-        while (true) {
-            if (linha != null) {
-                linha = buffRead.readLine();
-                retornar[cont] = linha;
+        String linha = buffRead.readLine();
+    
+        // String[] retornar = new String[2];
+        // int cont = 0;
+        // while (true) {
+        //     if (linha != null) {
+        //         linha = buffRead.readLine();
+        //         retornar[cont] = linha;
 
-            } else
-                break;
-            cont++;
-        }
+        //     } else
+        //         break;
+        //     cont++;
+        // }
         buffRead.close();
-        return retornar;
+        return linha;
     }
 
     private static int estaContido(String valor, String[] vetor){
@@ -92,13 +93,13 @@ public class Operations {
     
     public static String descompactaTexto(String texto, String path) {
         String retorna = "";
-        String[] linesFile = new String[2];
+        String linesFile = "";
         try {
             linesFile = pegaCabecalho(path);
 
         } catch (IOException e) {}
 
-        String[] cabecalho = linesFile[0].split("S2");
+        String[] cabecalho = linesFile.split("S2");
         String[] binarios = new String[cabecalho.length] ;
         char[] caracter = new char[cabecalho.length] ;
 
@@ -121,14 +122,14 @@ public class Operations {
     }
 
     public static String compactaTexto(String texto, String path) {
-        String[] linesFile = new String[2];
+        String linesFile = "";
         String retorna = "";
         try {
             linesFile = pegaCabecalho(path);
 
         } catch (IOException e) {}
 
-        String[] cabecalho = linesFile[0].split("S2");
+        String[] cabecalho = linesFile.split("S2");
         String[] binarios = new String[cabecalho.length] ;
         char[] caracter = new char[cabecalho.length] ;
         for (int i = 0; i < cabecalho.length; i++) {
@@ -198,6 +199,23 @@ public class Operations {
         buffRead.close();
         return Texto;
 		
+	}
+
+    public static String lerBinario(String path) throws IOException {
+        BufferedReader buffRead = new BufferedReader(new FileReader(path));
+		String linha = "";
+        String Texto = "";
+        buffRead.readLine();
+		while (true) {
+			if (linha != null) {
+				Texto+= linha;
+
+			} else
+				break;
+			linha = buffRead.readLine();
+		}
+		buffRead.close();
+        return Texto;
 	}
 
     public static void escritor(String path,String texto) throws IOException {

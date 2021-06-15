@@ -24,6 +24,7 @@ public class interfaceArq extends JFrame implements ActionListener {
     // Descompacta
     JLabel TextoDesc = new JLabel("Texto descompactado:");
     JTextArea TextoDescField = new JTextArea();
+    // JScrollPane scrollPane = new JScrollPane(TextoDescField, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     JButton DescButton = new JButton("Descompactar");
 
     public interfaceArq() {
@@ -54,7 +55,7 @@ public class interfaceArq extends JFrame implements ActionListener {
 
         TextoDesc.setBounds(45, 450, 200, 30);
         TextoDescField.setBounds(45, 480, 900, 250);
-        DescButton.setBounds(45, 730, 900, 30);
+        DescButton.setBounds(45, 740, 900, 30);
     }
 
     public void addComponentsToContainer() {
@@ -138,6 +139,25 @@ public class interfaceArq extends JFrame implements ActionListener {
         }
         if (e.getSource() == DescButton){
             container.add(TextoDescField);
+            
+            JFileChooser f = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+            int returnValue = f.showOpenDialog(null);
+            String path = "";
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+
+                File selectedFile = f.getSelectedFile();
+                path = selectedFile.getAbsolutePath();                
+           
+            }
+            
+            try{
+                String Descompacta = Operations.descompactaTexto(Operations.lerBinario(path),path);
+                TextoDescField.setText(Descompacta);
+            }
+            catch(Exception sla){
+                JOptionPane.showMessageDialog(this, "Impossivel Descompactar");
+            }
+           
         }
     }
 }
