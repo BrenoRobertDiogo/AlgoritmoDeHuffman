@@ -68,14 +68,21 @@ public class Operations {
         String linha = buffRead.readLine();
         String Cabecalho = "";
         while (true) {
+            
             if (!linha.equals("")) {
-                Cabecalho+= linha;
+                Cabecalho+=linha;
             } else
                 break;
             linha = buffRead.readLine();
         }
         buffRead.close();
         return Cabecalho;
+    }
+    private static String pegaCabecalhoComp(String path) throws IOException {
+        BufferedReader buffRead = new BufferedReader(new FileReader(path));
+        String linha = buffRead.readLine();
+        buffRead.close();
+        return linha;
     }
 
     private static int estaContido(String valor, String[] vetor){
@@ -87,12 +94,13 @@ public class Operations {
         return -1;
     }
     
-    public static String descompactaTexto(String texto, String path) {
+    public static String descompactaTexto(String path) {
         String retorna = "";
         String linesFile = "";
+        String texto = "";
         try {
             linesFile = pegaCabecalho(path);
-
+            texto = lerBinario(path);
         } catch (IOException e) {}
 
         String[] cabecalho = linesFile.split("S2");
@@ -105,9 +113,11 @@ public class Operations {
         }
         String aux = "";
         for (int i = 0; i < texto.length() ; i++) {
-            aux += texto.charAt(i)+"";
+            aux += texto.charAt(i)+""; 
+            
             int numeroContido = estaContido(aux, binarios);
             if(numeroContido!=-1){
+                System.out.println(caracter[numeroContido]);
                 retorna+=caracter[numeroContido];
                 aux = "";
             }
@@ -121,7 +131,7 @@ public class Operations {
         String linesFile = "";
         String retorna = "";
         try {
-            linesFile = pegaCabecalho(path);
+            linesFile = pegaCabecalhoComp(path);
 
         } catch (IOException e) {}
 

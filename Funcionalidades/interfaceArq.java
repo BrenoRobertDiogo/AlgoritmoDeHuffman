@@ -108,7 +108,7 @@ public class interfaceArq extends JFrame implements ActionListener {
                 Operations.escritorDesc(caminho, binario);
                 JOptionPane.showMessageDialog(this, "O arquivo está salvo na pasta "+caminho+" contida na pasta do projeto !!!!");
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Nenhum arquivo selecionado");
+                JOptionPane.showMessageDialog(this, "Erro ao compactar o arquivo");
                 System.out.println(ex.getMessage());
             }
             
@@ -134,7 +134,7 @@ public class interfaceArq extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "O arquivo está salvo na pasta "+caminho+" contida na pasta do projeto !!!!");
 
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "ERROR");
+                JOptionPane.showMessageDialog(this, "Erro ao compactar o texto");
                 System.out.println(ex);
             }
         }
@@ -158,7 +158,7 @@ public class interfaceArq extends JFrame implements ActionListener {
             }
             
             try{
-                String Descompacta = Operations.descompactaTexto(Operations.lerBinario(path),path);
+                String Descompacta = Operations.descompactaTexto(path);
                 TextoDescField.setText(Descompacta);
                 Operations.escritorArq(pathM,Descompacta,NomeArq);
                 JOptionPane.showMessageDialog(this, "O arquivo foi descompactado com sucesso e foi salvo na pasta de destino !!!!");
