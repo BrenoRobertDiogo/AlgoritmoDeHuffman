@@ -98,12 +98,10 @@ public class interfaceArq extends JFrame implements ActionListener {
                 pathM = path.substring(0,position-1);
                 int pontoArq = NomeArq.lastIndexOf(".");
                 NomeArq = NomeArq.substring(0,pontoArq);
-                
-           
             }
         
             try {
-                String caminho = Operations.ExcutaBinarioArq(NomeArq,path,pathM);;
+                String caminho = Operations.ExecutaBinarioArq(NomeArq,path,pathM);
                 String binario = Operations.compactaTexto(Operations.leitor(caminho),caminho);
                 Operations.escritorDesc(caminho, binario);
                 JOptionPane.showMessageDialog(this, "O arquivo está salvo na pasta "+caminho+" contida na pasta do projeto !!!!");
@@ -111,9 +109,6 @@ public class interfaceArq extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Erro ao compactar o arquivo");
                 System.out.println(ex.getMessage());
             }
-            
-            
-            
         }
 
         else if (e.getSource() == CodButton) {
@@ -128,7 +123,7 @@ public class interfaceArq extends JFrame implements ActionListener {
                 f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
                 f.showSaveDialog(null);
                 path = f.getSelectedFile().toString();
-                String caminho = Operations.ExcutaBinario(TextoParaComp,NomeArq,path);
+                String caminho = Operations.ExecutaBinario(TextoParaComp,NomeArq,path);
                 String binario = Operations.compactaTexto(TextoParaComp,caminho);
                 Operations.escritorDesc(caminho, binario);
                 JOptionPane.showMessageDialog(this, "O arquivo está salvo na pasta "+caminho+" contida na pasta do projeto !!!!");
@@ -164,6 +159,7 @@ public class interfaceArq extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "O arquivo foi descompactado com sucesso e foi salvo na pasta de destino !!!!");
             }
             catch(Exception sla){
+                System.out.println(sla);
                 JOptionPane.showMessageDialog(this, "Impossivel Descompactar");
             }
            

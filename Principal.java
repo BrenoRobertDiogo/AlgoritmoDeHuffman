@@ -8,6 +8,44 @@ public class Principal {
          frame.setBounds(10,10,1000,1000);
          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
          frame.setResizable(false);
+            // String path = "C:\\Users\\aquil\\OneDrive\\Documentos\\TestesHU\\Compara.mexirica";
+            // String retorna = "";
+            // String linesFile = "";
+            // String texto = "";
+
+            // Operations teste = new Operations();
+            // try {
+            //     linesFile = teste.pegaCabecalho(path);
+            //     texto = teste.lerBinario(path);
+            //     String[] cabecalho = linesFile.split("S2");
+            //     String[] Bin = new String[cabecalho.length];
+            //     String[] Char = new String[cabecalho.length];
+                
+    
+            //     for(int i = 0; i < cabecalho.length; i++){
+            //         Bin[i] = cabecalho[i].substring(0, cabecalho[i].length()-1);
+            //         Char[i] = cabecalho[i].substring(cabecalho[i].length()-1,cabecalho[i].length());
+            //         System.out.println(cabecalho[i]);
+            //         System.out.println(Bin[i]);
+            //         System.out.println(Char[i]);
+            //         System.out.println("------------------------------");
+            //     }
+            //     String aux = "";
+    
+            //     for (int i = 0; i < texto.length(); i++){
+            //         aux += texto.charAt(i);
+            //         System.out.println(aux);
+            //         int numeroContido = teste.estaContido(aux,Bin);
+            //         if(numeroContido!=-1){
+            //             System.out.print(Char[numeroContido]);
+            //             // retorna+=caracter[numeroContido];
+            //             aux = "";
+            //         }
+                    
+            //     }
+            // } catch (IOException e) {}
+    
+    
 
         // // String texto2 = "Ana ama sua nana, sua mana e banana";
         // String TextoParaComp;

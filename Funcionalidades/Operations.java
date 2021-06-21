@@ -87,7 +87,7 @@ public class Operations {
 
     private static int estaContido(String valor, String[] vetor){
         for (int i = 0; i < vetor.length; i++) {
-            if(valor.equals(vetor[i])  ) {
+            if(vetor[i].equals(valor)  ) {
                 return i;
             }
         }
@@ -99,9 +99,11 @@ public class Operations {
         String linesFile = "";
         String texto = "";
         try {
-            linesFile = pegaCabecalho(path);
+            linesFile = pegaCabecalhoComp(path);
             texto = lerBinario(path);
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            System.out.println(e);
+        }
 
         String[] cabecalho = linesFile.split("S2");
         String[] binarios = new String[cabecalho.length] ;
@@ -111,13 +113,15 @@ public class Operations {
             binarios[i] = cabecalho[i].substring(0, cabecalho[i].length()-1);
             caracter[i] = cabecalho[i].charAt(cabecalho[i].length()-1);
         }
+        
+
         String aux = "";
         for (int i = 0; i < texto.length() ; i++) {
             aux += texto.charAt(i)+""; 
             
             int numeroContido = estaContido(aux, binarios);
+            
             if(numeroContido!=-1){
-                System.out.println(caracter[numeroContido]);
                 retorna+=caracter[numeroContido];
                 aux = "";
             }
@@ -133,7 +137,9 @@ public class Operations {
         try {
             linesFile = pegaCabecalhoComp(path);
 
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            System.out.println(e);
+        }
 
         String[] cabecalho = linesFile.split("S2");
         String[] binarios = new String[cabecalho.length] ;
@@ -158,7 +164,7 @@ public class Operations {
 
     
 
-    public static String ExcutaBinario(String texto,String nomearq,String path) throws IOException{
+    public static String ExecutaBinario(String texto,String nomearq,String path) throws IOException{
         ManipulaTexto manipulaTexto = new ManipulaTexto(texto);
         String[] arrayFrequencia = manipulaTexto.frequencia(100);
         LE listaEncadeada = manipulaTexto.arrayToList(arrayFrequencia);
@@ -168,14 +174,14 @@ public class Operations {
 
         buffWrite = new BufferedWriter(new FileWriter(path+"\\"+nomearq+".mexirica"));
         Operations.binarioLetra(pai.getNoTree().getFrequencia(), 2, "", buffWrite);
-        binarioLetra(pai.getNoTree().getFrequencia(), 2, "",buffWrite);
         buffWrite.close();
 
         return path+"\\"+nomearq+".mexirica";
     }
 
-    public static String ExcutaBinarioArq(String nomearq,String path,String pathM) throws IOException{
-        ManipulaTexto manipulaTexto = new ManipulaTexto(leitor(path));
+    public static String ExecutaBinarioArq(String nomearq,String path,String pathM) throws IOException{
+        String Texto = leitor(path);
+        ManipulaTexto manipulaTexto = new ManipulaTexto(Texto);
         String[] arrayFrequencia = manipulaTexto.frequencia(100);
         LE listaEncadeada = manipulaTexto.arrayToList(arrayFrequencia);
         NoList pai = criaArvore(listaEncadeada, manipulaTexto);
@@ -184,7 +190,6 @@ public class Operations {
 
         buffWrite = new BufferedWriter(new FileWriter(pathM+"\\"+nomearq+".mexirica"));
         Operations.binarioLetra(pai.getNoTree().getFrequencia(), 2, "", buffWrite);
-        binarioLetra(pai.getNoTree().getFrequencia(), 2, "",buffWrite);
         buffWrite.close();
 
         return pathM+"\\"+nomearq+".mexirica";
@@ -212,24 +217,8 @@ public class Operations {
 		String linha = buffRead.readLine();
         String Texto = "";
 
-        while (true) {
-            if (!linha.equals("")){
-                linha = buffRead.readLine();
-            }
-            else {
-                break;
-            }
-        }
-
-        // linha = buffRead.readLine();
-		while (true) {
-			if (linha != null) {
-				Texto+= linha;
-
-			} else
-				break;
-			linha = buffRead.readLine();
-		}
+        linha = buffRead.readLine();
+        Texto+= linha;
 		buffRead.close();
         return Texto;
 	}
@@ -239,7 +228,7 @@ public class Operations {
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter out = new PrintWriter(bw)){
             
-            out.print("\n\n"+texto);
+            out.print("\n"+texto);
         }
          catch (IOException e){
             
