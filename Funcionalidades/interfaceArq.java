@@ -100,11 +100,8 @@ public class interfaceArq extends JFrame implements ActionListener {
             }
             try {
                 String Texto = Operations.leitor(path);
-                System.out.println(Texto);
                 String caminho = Operations.ExecutaBinario(Texto,NomeArq,pathM);
-                String binario = Operations.compactaTexto(Operations.leitor(caminho),caminho);
-                System.out.println(binario);
-                System.out.println(caminho);
+                String binario = Operations.compactaTexto(Texto,caminho);
                 Operations.escritorDesc(caminho, binario);
                 JOptionPane.showMessageDialog(this, "O arquivo está salvo na pasta "+caminho+" contida na pasta do projeto !!!!");
             } catch (Exception ex) {
