@@ -6,6 +6,8 @@ import dados.dataTree.Nodo;
 import dados.dataList.NoList;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 // Escrever objetos
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -58,26 +60,27 @@ public class Operations {
                 }
 
             }
+            
             binarioLetra(r.getFE(), 0, retornar, buffWrite);
             binarioLetra(r.getFD(), 1, retornar, buffWrite);
         }
     }
 
-    private static String pegaCabecalho(String path) throws IOException {
-        BufferedReader buffRead = new BufferedReader(new FileReader(path));
-        String linha = buffRead.readLine();
-        String Cabecalho = "";
-        while (true) {
+    // private static String pegaCabecalho(String path) throws IOException {
+    //     BufferedReader buffRead = new BufferedReader(new FileReader(path));
+    //     String linha = buffRead.readLine();
+    //     String Cabecalho = "";
+    //     while (true) {
             
-            if (!linha.equals("")) {
-                Cabecalho+=linha;
-            } else
-                break;
-            linha = buffRead.readLine();
-        }
-        buffRead.close();
-        return Cabecalho;
-    }
+    //         if (!linha.equals("")) {
+    //             Cabecalho+=linha;
+    //         } else
+    //             break;
+    //         linha = buffRead.readLine();
+    //     }
+    //     buffRead.close();
+    //     return Cabecalho;
+    // }
     private static String pegaCabecalhoComp(String path) throws IOException {
         BufferedReader buffRead = new BufferedReader(new FileReader(path));
         String linha = buffRead.readLine();
@@ -175,40 +178,20 @@ public class Operations {
         buffWrite = new BufferedWriter(new FileWriter(path+"\\"+nomearq+".mexirica"));
         Operations.binarioLetra(pai.getNoTree().getFrequencia(), 2, "", buffWrite);
         buffWrite.close();
+        binarioLetra(pai.getNoTree().getFrequencia(), 2, "",buffWrite);
 
         return path+"\\"+nomearq+".mexirica";
     }
 
-    public static String ExecutaBinarioArq(String nomearq,String path,String pathM) throws IOException{
-        String Texto = leitor(path);
-        ManipulaTexto manipulaTexto = new ManipulaTexto(Texto);
-        String[] arrayFrequencia = manipulaTexto.frequencia(100);
-        LE listaEncadeada = manipulaTexto.arrayToList(arrayFrequencia);
-        NoList pai = criaArvore(listaEncadeada, manipulaTexto);
-
-        BufferedWriter buffWrite;
-
-        buffWrite = new BufferedWriter(new FileWriter(pathM+"\\"+nomearq+".mexirica"));
-        Operations.binarioLetra(pai.getNoTree().getFrequencia(), 2, "", buffWrite);
-        buffWrite.close();
-
-        return pathM+"\\"+nomearq+".mexirica";
-    }
 
     public static String leitor(String path) throws IOException {
-		BufferedReader buffRead = new BufferedReader(new FileReader(path));
-		String linha = "";
-        String Texto = "";
-		while (true) {
-			if (linha != null) {
-				Texto += linha;
-
-			} else
-				break;
-			linha = buffRead.readLine();
-		}
-        buffRead.close();
-        return Texto;
+        String texto = "";
+        try {
+            texto = new String(Files.readAllBytes(Paths.get(path)));
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return texto;
 		
 	}
 
@@ -236,7 +219,7 @@ public class Operations {
 	}
 
     public static void escritorArq(String path,String texto, String nome) throws IOException {
-        try(FileWriter fw = new FileWriter(path+"\\"+nome+".txt", true);
+        try(FileWriter fw = new FileWriter(path+"\\"+nome+"D"+".txt", true);
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter out = new PrintWriter(bw)){
             out.print(texto);
