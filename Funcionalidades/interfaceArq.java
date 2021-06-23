@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 
+
 public class interfaceArq extends JFrame implements ActionListener {
     //Texto digitado
     Container container = getContentPane();
@@ -16,6 +17,7 @@ public class interfaceArq extends JFrame implements ActionListener {
     JButton CodButton = new JButton("Compactar");
     JLabel nomeArqLabel = new JLabel("Nome do Arquivo:");
     JTextField nomeArq = new JTextField();
+    
 
     // Texto de Arquivo
     JLabel CodArqui= new JLabel("Selecione o Arquivo que deseja compactar:");
@@ -32,7 +34,17 @@ public class interfaceArq extends JFrame implements ActionListener {
         setLocationAndSize();
         addComponentsToContainer();
         addActionEvent();
+        getContentPane().setBackground(Color.ORANGE.darker());
+        Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("images/download.jpg"));
+        ImageIcon icon = new ImageIcon(image);
+        setIconImage(icon.getImage());
+	    mudaButtDesc(); 
+        mudaCodButton();              
+        mudaCodArquiButton();
+        
     }
+
+
 
     public void setLayoutManager() {
         container.setLayout(null);
@@ -43,17 +55,22 @@ public class interfaceArq extends JFrame implements ActionListener {
 
     public void setLocationAndSize() {
         TextoCod.setBounds(45, 20, 300, 30);
+        TextoCod.setFont(new Font("Arial", Font.BOLD , 17));
         TextoCodField.setBounds(45, 50, 900, 250);
         CodButton.setBounds(45, 300, 900, 30);
+        
 
         CodArqui.setBounds(45,400,250,30);
+        TextoCod.setFont(new Font("Arial", Font.BOLD , 12));
         CodArquiButton.setBounds(310, 400, 350, 30);
 
         nomeArqLabel.setBounds(695, 6, 100, 60);
+        nomeArqLabel.setFont(new Font("Arial", Font.BOLD , 12));
         nomeArq.setBounds(795, 25, 150, 20);
         
 
         TextoDesc.setBounds(45, 450, 200, 30);
+        TextoDesc.setFont(new Font("Arial", Font.BOLD , 17));
         sp.setBounds(45, 480, 900, 250);
         DescButton.setBounds(45, 740, 900, 30);
     }
@@ -76,6 +93,27 @@ public class interfaceArq extends JFrame implements ActionListener {
         CodButton.addActionListener(this);
         DescButton.addActionListener(this);
         CodArquiButton.addActionListener(this);
+    }
+    public void mudaButtDesc(){
+        DescButton.setFont(new Font("Arial", 5, 18));
+        DescButton.setForeground(new Color(0, 0, 170));      
+        DescButton.setRequestFocusEnabled(true);
+        DescButton.setRolloverEnabled(true);  
+        add(DescButton);
+    }
+    public void mudaCodButton(){
+        CodButton.setFont(new Font("Arial", 5, 18));
+        CodButton.setForeground(new Color(0, 0, 170));      
+        CodButton.setRequestFocusEnabled(true);
+        CodButton.setRolloverEnabled(true);  
+        add(CodButton);
+    }
+    public void mudaCodArquiButton(){
+        CodArquiButton.setFont(new Font("Arial", 5, 18));
+        CodArquiButton.setForeground(new Color(0, 0, 170));      
+        CodArquiButton.setRequestFocusEnabled(true);
+        CodArquiButton.setRolloverEnabled(true);  
+        add(CodArquiButton);
     }
 
     @Override
@@ -100,8 +138,11 @@ public class interfaceArq extends JFrame implements ActionListener {
             }
             try {
                 String Texto = Operations.leitor(path);
+                System.out.println(Texto);
                 String caminho = Operations.ExecutaBinario(Texto,NomeArq,pathM);
-                String binario = Operations.compactaTexto(Texto,caminho);
+                String binario = Operations.compactaTexto(Operations.leitor(caminho),caminho);
+                System.out.println(binario);
+                System.out.println(caminho);
                 Operations.escritorDesc(caminho, binario);
                 JOptionPane.showMessageDialog(this, "O arquivo está salvo na pasta "+caminho+" contida na pasta do projeto !!!!");
             } catch (Exception ex) {

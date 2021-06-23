@@ -25,11 +25,22 @@ public class Operations {
         NoList pai = null;
 
         for (int i = 0; i < tamanhoLE; i++) {
+            // System.out.println(listaEncadeada.toString());
             baiocco2 = manipulaTexto.doisMenores(listaEncadeada);
             pai = manipulaTexto.adicionaPai(baiocco2);
             listaEncadeada.inserirLogica(pai);
         }
         return pai;
+    }
+
+    public static void printaArvore(String[] arrayFrequencia, LE listaEncadeada) {
+        int temp;
+        char letra;
+        for (String i : arrayFrequencia) {
+            temp = Integer.parseInt(i.split("ϡ,")[0]);
+            letra = i.split("ϡ,")[1].charAt(0);
+            listaEncadeada.inserir(temp, letra);
+        }
     }
 
     private static void binarioLetra(Nodo r, int lado, String total, BufferedWriter buffWrite) {
@@ -55,6 +66,21 @@ public class Operations {
         }
     }
 
+    // private static String pegaCabecalho(String path) throws IOException {
+    //     BufferedReader buffRead = new BufferedReader(new FileReader(path));
+    //     String linha = buffRead.readLine();
+    //     String Cabecalho = "";
+    //     while (true) {
+            
+    //         if (!linha.equals("")) {
+    //             Cabecalho+=linha;
+    //         } else
+    //             break;
+    //         linha = buffRead.readLine();
+    //     }
+    //     buffRead.close();
+    //     return Cabecalho;
+    // }
     private static String pegaCabecalhoComp(String path) throws IOException {
         BufferedReader buffRead = new BufferedReader(new FileReader(path));
         String linha = buffRead.readLine();
@@ -166,6 +192,7 @@ public class Operations {
             e.getStackTrace();
         }
         return texto;
+		
 	}
 
     public static String lerBinario(String path) throws IOException {
